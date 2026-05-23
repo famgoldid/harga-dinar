@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Harga Antam</title>
+
+<style>
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #f4ecd8;
+  display: flex;
+  justify-content: center;
+}
+
+.container {
+  width: 400px;
+  background: #f4ecd8;
+  padding: 20px;
+  text-align: center;
+}
+
+.title {
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.date {
+  font-size: 20px;
+  margin-bottom: 15px;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th {
+  background: #d4af37;
+  color: black;
+  padding: 10px;
+  border: 2px solid black;
+}
+
+td {
+  padding: 10px;
+  border: 2px solid black;
+  font-size: 16px;
+}
+
+.footer {
+  margin-top: 10px;
+  font-size: 12px;
+  color: #333;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+  <div class="title">Harga Antam Konsumen</div>
+  <div class="date" id="tanggal"></div>
+
+  <table>
+    <thead>
+      <tr>
+        <th>ANTAM</th>
+        <th>HARGA JUAL</th>
+      </tr>
+    </thead>
+    <tbody id="data"></tbody>
+  </table>
+
+  <div class="footer">Update otomatis dari database</div>
+</div>
+
+<script>
+// 🔴 GANTI LINK INI dengan CSV Google Sheet kamu
+const sheetURL = "https://docs.google.com/spreadsheets/d/XXXX/export?format=csv";
+
+fetch(sheetURL)
+.then(res => res.text())
+.then(data => {
+  const rows = data.split("\n").slice(1);
+  const tbody = document.getElementById("data");
+
+  rows.forEach(row => {
+    const cols = row.split(",");
+    if(cols.length < 2) return;
+
+    const tr = document.createElement("tr");
+
+    tr.innerHTML = `
+      <td>${cols[0]}</td>
+      <td>${formatRupiah(cols[1])}</td>
+    `;
+
+    tbody.appendChild(tr);
+  });
+});
+
+// format rupiah
+function formatRupiah(angka) {
+  return "Rp " + parseInt(angka).toLocaleString("id-ID");
+}
+
+// tanggal otomatis
+const today = new Date();
+document.getElementById("tanggal").innerText =
+  today.toLocaleDateString("id-ID", {
+    day: "2-digit",
+    month: "long",
+    year: "numeric"
+  });
+
+// auto refresh tiap 1 menit
+setInterval(() => location.reload(), 60000);
+</script>
+
+</body>
+</html>
