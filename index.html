@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Harga Antam</title>
+<title>Harga Dinar Konsumen</title>
 
 <style>
 body {
@@ -60,13 +60,13 @@ td {
 <body>
 
 <div class="container">
-  <div class="title">Harga Antam Konsumen</div>
+  <div class="title">Harga Dinar Konsumen</div>
   <div class="date" id="tanggal"></div>
 
   <table>
     <thead>
       <tr>
-        <th>ANTAM</th>
+        <th>DINAR</th>
         <th>HARGA JUAL</th>
       </tr>
     </thead>
@@ -78,7 +78,7 @@ td {
 
 <script>
 // 🔴 GANTI LINK INI dengan CSV Google Sheet kamu
-const sheetURL = "https://docs.google.com/spreadsheets/d/XXXX/export?format=csv";
+const sheetURL = "https://docs.google.com/spreadsheets/d/1K3tOcJIab7UppwcXxeKk54bOzmc5bhhAzuUCP36u5_g/export?format=csv;
 
 fetch(sheetURL)
 .then(res => res.text())
